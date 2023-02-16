@@ -39,6 +39,10 @@ class ErrorHandler(AbstractErrorHandler):
             err_msg = 'Unknown error occurred: %s' % self.exc
 
         try:
+            data = str(self.incoming_message)
+            with open('/data/' + datetime.datetime.now().isoformat() + '-data.txt', "wt") as f:
+                f.write(data)
+
             parsed_message = parse_message(self.incoming_message)
             parsed_message.MSH.validate()
             m = Message("ACK")
